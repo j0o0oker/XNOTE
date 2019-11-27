@@ -2,9 +2,88 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>首页</title>
   </head>
   <body>
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssss
+    <div class="app" id="app">
+         {{a}}
+    </div>
+
+
+
+
+
+
+
+
+
   </body>
+  <script src="./script/api.js" charset="utf-8"></script>
+  <script src="./script/vue.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+        var vm;
+        apiready = function() {
+            vm = new Vue({
+                el: '#app',
+                data: {
+                    a: '啊啊啊啊啊啊啊'
+                },
+                created: function () {
+                    this.initView();
+                },
+                methods: {
+                    initView: function () {
+                        api.openTabLayout({
+                            name: 'tabLayout',
+                            url: 'widget://html/app.html',
+                            hideTabBar: false,
+                            tabBar: {
+                                selectedColor: '#0ef01c',
+                                list: [
+                                    {
+                                        text: '首页',
+                                        iconPath: 'widget://image/public/sy.png',
+                                        selectedIconPath: 'widget://image/public/sy_hov.png'
+                                    },
+                                    {
+                                        text: '动态',
+                                        iconPath: 'widget://image/public/dt.png',
+                                        selectedIconPath: 'widget://image/public/dt_hov.png'
+                                    },
+                                    {
+                                        text: '发表',
+                                        iconPath: 'widget://image/public/fb.png',
+                                        selectedIconPath: 'widget://image/public/fb_hov.png'
+                                    },
+                                    {
+                                        text: '我的',
+                                        iconPath: 'widget://image/public/wd.png',
+                                        selectedIconPath: 'widget://image/public/wd_hov.png'
+                                    }
+                                ],
+                                frames: [
+                                    {
+                                        name: 'home',
+                                        url: 'widget://html/home.html'
+                                    },
+                                    {
+                                        name: 'post',
+                                        url: 'widget://html/post.html'
+                                    },
+                                    {
+                                        name: 'publish',
+                                        url: 'widget://html/publish.html'
+                                    },
+                                    {
+                                        name: 'mine',
+                                        url: 'widget://html/mine.html'
+                                    }
+                                ]
+                            }
+                        });
+                    }
+                }
+            });
+        }
+  </script>
 </html>
