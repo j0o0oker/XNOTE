@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>登陆</title>
+    </head>
+    <style media="screen">
+        body, html, #app {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+        }
+        .app {
+            position: absolute;;
+            background: url(../../image/mine/login_bg.jpg) no-repeat;
+            background-size:100% 100%;
+        }
+        .inp-wrap {
+            margin: 0 .75rem;
+            margin-top: 10rem;
+            font-size: .7rem;
+        }
+        .inp {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            height: 2rem;
+            margin-bottom: .75rem;
+            padding: .25rem;
+            border: 1px solid #fff;
+            border-radius: .25rem;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            height: 2rem;
+            margin-bottom: .75rem;
+            border: 1px solid #6799e6;
+            border-radius: .25rem;
+            box-shadow: none;
+            color: #fff;
+            background-color: #6799e6;
+        }
+        .warning-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 2rem;
+            margin-bottom: .75rem;
+            border-radius: .25rem;
+            line-height: 2rem;
+            text-align: center;
+            color: #fff;
+        }
+        .warning-bar img {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-top: .25rem;
+            margin-right: 1rem
+        }
+        .forget_pw {
+            background-color: #6799e6;
+        }
+        .weixin, .qq {
+            background-color: #fff;
+            color: #6799e6;
+        }
+    </style>
+    <body>
+        <div class="app" id="app">
+            <div class="inp-wrap">
+                <input class="inp" type="text" placeholder="手机号、用户名、邮箱">
+                <input class="inp" type="password" placeholder="密码">
+                <button class="btn">登陆</button>
+                <div class="warning-bar forget_pw">忘记密码？</div>
+                <p class="warning-bar">--或--</p>
+                <div class="warning-bar weixin"><img src="../../image/mine/wx.png">使用微信登陆</div>
+                <div class="warning-bar qq"><img src="../../image/mine/qq.png">使用QQ登陆</div>
+                <p class="warning-bar">没有账号？<span style="color:#6799e6;">前往注册</span></p>
+            </div>
+        </div>
+    </body>
+
+
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+          var vm;
+          apiready = function() {
+              vm = new Vue({
+                  el: '#app',
+                  data: {
+                  },
+                  created: function () {
+                  },
+                  methods: {
+
+                  }
+              });
+          }
+    </script>
+</html>

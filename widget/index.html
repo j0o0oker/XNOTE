@@ -6,17 +6,7 @@
   </head>
   <body>
     <div class="app" id="app">
-         {{a}}
     </div>
-
-
-
-
-
-
-
-
-
   </body>
   <script src="./script/api.js" charset="utf-8"></script>
   <script src="./script/vue.min.js" charset="utf-8"></script>
@@ -26,10 +16,10 @@
             vm = new Vue({
                 el: '#app',
                 data: {
-                    a: '啊啊啊啊啊啊啊'
                 },
                 created: function () {
                     this.initView();
+                    // this.addbadge();
                 },
                 methods: {
                     initView: function () {
@@ -38,7 +28,12 @@
                             url: 'widget://html/app.html',
                             hideTabBar: false,
                             tabBar: {
+                                height: '70',
                                 selectedColor: '#0ef01c',
+                                textOffset: '6',                    //文字与图标对齐方式是space-between
+                                scrollEnabled: true,
+                                index: 3,
+                                fontSize: '15',
                                 list: [
                                     {
                                         text: '首页',
@@ -81,7 +76,9 @@
                                 ]
                             }
                         });
-                    }
+
+                    },
+                    
                 }
             });
         }

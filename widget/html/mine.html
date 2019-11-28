@@ -4,7 +4,58 @@
         <meta charset="utf-8">
         <title>个人中心</title>
     </head>
+    <style media="screen">
+        body, html, #app {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0
+        }
+        .app {
+        }
+    </style>
     <body>
-        个人中心
+        <div class="app" id="app">
+            <button @click="onLoginClick">登陆</button>
+        </div>
     </body>
+
+
+    <script src="../script/api.js" charset="utf-8"></script>
+    <script src="../script/vue.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+          var vm;
+          apiready = function() {
+              vm = new Vue({
+                  el: '#app',
+                  data: {
+                  },
+                  created: function () {
+                    //   this.initView();
+                      this.addbadge();
+                  },
+                  methods: {
+                      addbadge: function () {
+                          api.setTabBarItemAttr({
+                                index: 1,
+                                badge: {
+                                    text: '1',
+                                    background: '#ff0000',
+                                    color: '#fff',
+                                    radius: 8,
+                                    x: 5,
+                                    y: 5
+                                }
+                            });
+                      },
+                      onLoginClick: function () {
+                        api.openWin({
+                            name: 'login',
+                            url: './mine/login.html',
+                        });
+                      }
+                  }
+              });
+          }
+    </script>
 </html>
