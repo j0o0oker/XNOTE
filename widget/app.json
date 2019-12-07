@@ -1,0 +1,39 @@
+{
+  "name": "root",
+  "tabBar": {
+    "frames": [{
+      "title": "home",
+      "name": "home",
+      "url": "widget://html/home.html"
+    }, {
+      "title": "post",
+      "name": "post",
+      "url": "widget://html/post.html"
+    }, {
+      "title": "publish",
+      "name": "publish",
+      "url": "widget://html/publish.html"
+    },{
+      "title": "mine",
+      "name": "mine",
+      "url": "widget://html/mine.html"
+    }],
+    "list": [{
+      "text": "首页",
+      "iconPath": "widget://image/public/sy.png",
+      "selectedIconPath": "widget://image/public/sy_hov.png"
+    }, {
+      "text": "动态",
+      "iconPath": "widget://image/public/dt.png",
+      "selectedIconPath": "widget://image/public/dt_hov.png"
+    }, {
+      "text": "发表",
+      "iconPath": "widget://image/public/fb.png",
+      "selectedIconPath": "widget://image/public/fb_hov.png"
+    }, {
+      "text": "我的",
+      "iconPath": "widget://image/public/wd.png",
+      "selectedIconPath": "widget://image/public/wd_hov.png"
+    }]
+  }
+}

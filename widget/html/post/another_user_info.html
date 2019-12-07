@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>个人中心</title>
+    </head>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style media="screen">
+        body, html, #app {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0
+        }
+        .app {
+            /*padding: 0 .75rem;*/
+        }
+        .header {
+            padding:1rem .75rem;
+            border-bottom: 1px solid #ddd;
+        }
+    .user-info {
+        display: flex;
+        justify-content: space-between;
+        height: 5rem;
+    }
+    .user-info .avator {
+        width: 5rem;
+        height:5rem;
+        background-color: #ccc;
+        border-radius: 50%;
+    }
+    .user-info .avator img {
+        width: 100%;
+        height:100%;
+    }
+    .user-info .user-description {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: space-between;
+        margin-left: .75rem;
+    }
+    .user-info .user-description .description-bar {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .user-info .user-description .description-bar .count {
+        text-align: center;
+        font-size: .7rem;
+        font-weight: 900;
+    }
+    .user-info .user-description .description-bar .text {
+        text-align: center;
+        font-size: .6rem;
+        color: #9f9f9f;
+    }
+    .user-info .user-description .btn-bar {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .user-info .user-description .btn-bar .chart-btn {
+        height: 1.2rem;
+        width: 43%;
+        border-radius: .25rem;
+        line-height: 1.2rem;
+        text-align: center;
+        text-align: center;
+        font-size: .65rem;
+        border: 1px solid #ddd;
+    }
+    .user-info .user-description .btn-bar .attention-btn {
+        height: 1.2rem;
+        width: 43%;
+        border-radius: .25rem;
+        line-height: 1.2rem;
+        text-align: center;
+        text-align: center;
+        font-size: .65rem;
+        border: 1px solid #ddd;
+    }
+    .btn-active {
+        color: #fff;
+        background-color: #fd5b58;
+    }
+    </style>
+    <body>
+        <div class="app" id="app">
+            <div class="header">
+                <div class="user-info">
+                <div class="avator">
+                    <img src="../../image/mine/avator.jpg" alt="">
+                </div>
+                <div class="user-description">
+                    <ul class="description-bar">
+                        <li class="item">
+                            <div class="count">88</div>
+                            <div class="text">好友</div>
+                        </li>
+                        <li class="item">
+                            <div class="count">88</div>
+                            <div class="text">粉丝</div>
+                        </li>
+                        <li class="item">
+                            <div class="count">88</div>
+                            <div class="text">关注</div>
+                        </li>
+                        <li class="item">
+                            <div class="count">88</div>
+                            <div class="text">文章</div>
+                        </li>
+                    </ul>
+                    <div class="btn-bar">
+                        <div class="chart-btn">私信</div>
+                        <div class="attention-btn" :class="{'btn-active': !isAttention}" v-if="!isAttention" @click="onAttenClick">关注</div>
+                        <div class="attention-btn" :class="{'btn-active': !isAttention}" v-if="isAttention" @click="onAttenClick"> <i class="aui-iconfont aui-icon-correct" style="margin-right: .5rem;"></i>已关注</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+          var vm;
+          apiready = function() {
+              vm = new Vue({
+                  el: '#app',
+                  data: {
+                      isAttention: false
+                  },
+                  created: function () {
+                    //   this.initView();
+                     
+                  },
+                  methods: {
+                      onLoginClick: function () {
+                        api.openWin({
+                            name: 'login',
+                            url: './mine/login.html',
+                        });
+                    },
+                    onAttenClick: function () {
+                        if (!this.isAttention) {
+                            api.toast({
+                                msg: '关注成功',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        } else {
+                            api.toast({
+                                msg: '取消关注成功',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        }
+                        this.isAttention = !this.isAttention;
+                        }
+                  }
+              });
+          }
+    </script>
+</html>

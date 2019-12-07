@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>个人中心</title>
     </head>
+    <link rel="stylesheet" href="../css/reset.css">
     <style media="screen">
         body, html, #app {
             height: 100%;
@@ -12,15 +13,130 @@
             padding: 0
         }
         .app {
+            /*padding: 0 .75rem;*/
+        }
+        .header {
+            padding:1rem .75rem;
+            border-bottom: 1px solid #ddd;
+        }
+        .header .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .header .user-info .avator {
+            width: 5rem;
+            height: 5rem;
+            border: 1px solid #6799e6;
+        }
+        .header .user-info .avator img {
+            width: 100%;
+            height: 100%;
+        }
+        .header .info-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+            color: #6799e6;
+        }
+        .header .info-bar .info-item {
+            /*display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+            background-color: #ccc;*/
+        }
+        .header .info-bar .info-item span {
+            display: block;
+            text-align: center;
+        }
+        .do-list {
+            padding: 0 .75rem;
+        }
+        .do-list .do-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .75rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .do-list .do-item img {
+            width: 100%;
+            height: 100%;
+        }
+        .do-list .do-item .icon, .do-list .do-item .arrow {
+            width: 1rem;
+            height: 1rem;
+        }
+        .do-list .do-item .title-wrap {
+            display: flex;
+            align-items: center;
+        }
+        .do-list .do-item .title-wrap .title {
+            margin-left: 1rem;
+        }
+        .logout-btn {
+            width: 25rem;
+            height: 2.5rem;
+            margin: 2rem auto;
+            border-radius: .25rem;
+            text-align: center;
+            line-height: 2.5rem;
+            color: #fff;
+            font-size: 1.5rem;
+            background-color: #6799e6;
         }
     </style>
     <body>
         <div class="app" id="app">
-            <button @click="onLoginClick">登陆</button>
+            <div class="header">
+                <div class="user-info">
+                    <div class="name">
+                        天下第一帅
+                        <div @click="onLoginClick" style="margin-top:1rem;font-size.6rem;color:#fff;background-color:rgba(0, 0, 0, .6);">这是默认信息，点我登陆></div>
+                    </div>
+                    <div class="avator">
+                        <img src="../image/mine/avator.jpg" alt="">
+                    </div>
+                </div>
+                <ul class="info-bar">
+                    <li class="info-item">
+                        <span>0</span>
+                        <span>好友</span>
+                    </li>
+                    <li class="info-item">
+                        <span>0</span>
+                        <span>粉丝</span>
+                    </li>
+                    <li class="info-item">
+                        <span>0</span>
+                        <span>关注</span>
+                    </li>
+                    <li class="info-item">
+                        <span>0</span>
+                        <span>文章</span>
+                    </li>
+                </ul>
+            </div>
+            <ul class="do-list">
+                <li class="do-item" v-for="(item, index) in 15" :key="index">
+                    <div class="title-wrap">
+                        <div class="icon">
+                            <img src="../image/mine/avator.jpg" alt="">
+                        </div>
+                        <span class="title">嘿嘿嘿嘿</span>
+                    </div>
+                    <div class="arrow">
+                        <img src="../image/mine/avator.jpg" alt="">
+                    </div>
+                </li>
+            </ul>
+            <div class="footer">
+                <div class="logout-btn">
+                    退出登陆
+                </div>
+            </div>
         </div>
     </body>
-
-
     <script src="../script/api.js" charset="utf-8"></script>
     <script src="../script/vue.min.js" charset="utf-8"></script>
     <script type="text/javascript">

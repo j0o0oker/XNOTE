@@ -13,13 +13,23 @@
             font-size: 20px;
         }
         .app {
-            position: absolute;;
+            position: absolute;
+            height:1000px;
             background: url(../../image/mine/login_bg.jpg) no-repeat;
             background-size:100% 100%;
         }
+        .close {
+            margin-top: .75rem;
+            width: 1.5em;
+            height: 1.5rem;
+        }
+        .close img {
+            width: 100%;
+            height: 100%;
+        }
         .inp-wrap {
             margin: 0 .75rem;
-            margin-top: 10rem;
+            margin-top: 15rem;
             font-size: .7rem;
         }
         .inp {
@@ -71,11 +81,16 @@
         }
     </style>
     <body>
-        <div class="app" id="app">
+        <div class="app" id="app" :style="{ height: bodyHeight + 'px' }">
+            <div class="header">
+                <div class="close" @click="api.closeWin();">
+                    <img src="../../image/public/white_arror_back.png" alt="">
+                </div>
+            </div>
             <div class="inp-wrap">
-                <input class="inp" type="text" placeholder="手机号、用户名、邮箱">
-                <input class="inp" type="password" placeholder="密码">
-                <button class="btn">登陆</button>
+                <input class="inp" type="text" placeholder="手机号、用户名、邮箱" @blur="userOnBlur">
+                <input class="inp" type="password" placeholder="密码" @blur="pwOnBlur">
+                <div class="warning-bar forget_pw">登陆</div>
                 <div class="warning-bar forget_pw">忘记密码？</div>
                 <p class="warning-bar">--或--</p>
                 <div class="warning-bar weixin"><img src="../../image/mine/wx.png">使用微信登陆</div>
@@ -84,8 +99,6 @@
             </div>
         </div>
     </body>
-
-
     <script src="../../script/api.js" charset="utf-8"></script>
     <script src="../../script/vue.min.js" charset="utf-8"></script>
     <script type="text/javascript">
@@ -94,11 +107,39 @@
               vm = new Vue({
                   el: '#app',
                   data: {
+                      bodyHeight: '',
+                      truth: true
                   },
                   created: function () {
                   },
+                  mounted: function () {
+                      this.bodyHeight=document.documentElement.clientHeight
+                  },
                   methods: {
+                     userOnBlur: function () {
+                         if (!this.truth) {
+                             this.truth = true;
+                            return;
+                         }
+                         if(false) {
+                             this.truth = false;
+                             return;
+                         }
+                         this.truth = true;
+                         console.log(1);
+                     },
+                     pwOnBlur: function () {
+                         if (!this.truth) {
+                             this.truth = true;
 
+                            return;
+                         }
+                         if(!false) {
+                             this.truth = false;
+                             return;
+                         }
+                         console.log(2);
+                     }
                   }
               });
           }

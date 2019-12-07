@@ -4,7 +4,106 @@
         <meta charset="utf-8">
         <title>动态</title>
     </head>
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .nav {
+            display: flex;
+            padding: .75rem;
+        }
+        .nav .nav-item {
+            margin-right: .75rem;
+            line-height: 1.5rem;
+        }
+        .nav-active {
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+    </style>
     <body>
-        动态
+        <div id="app" class="app">
+            <div id="nav" class="nav">
+                <div class="nav-item" :class="{'nav-active': navActive === 0}" @click="onNavItenClick(0)">热门推荐</div>
+                <div class="nav-item" :class="{'nav-active': navActive === 1}" @click="onNavItenClick(1)">关注的人</div>
+                <div class="nav-item" :class="{'nav-active': navActive === 2}" @click="onNavItenClick(2)">心情广场</div>
+
+            </div>
+        </div>
     </body>
+    <script src="../script/api.js" charset="utf-8"></script>
+    <script src="../script/vue.min.js" charset="utf-8"></script>
+    <script src="../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            api.addEventListener({
+                name: 'tabitembtn'
+            }, function(ret, err){
+                if (err) {
+                    return;
+                }
+                if (ret.index !== 1) {
+                    api.closeFrameGroup({
+                        name: 'post_group'
+                    });
+                }
+                if (ret.index === 1) {
+                    vm.initFrameGroup();
+                }
+                api.setTabBarAttr({
+                    index: ret.index
+                });
+                console.log(JSON.stringify(ret));
+            });
+            vm = new Vue({
+                el: '#app',
+                data: {
+                    navActive: 0
+                },
+                created: function () {
+                    this.$nextTick(function () {
+                        this.initFrameGroup();
+                    });
+                },
+                methods: {
+                    initFrameGroup: function () {
+                        var headerHeigt = $api.byId('nav').offsetHeight;
+                        api.openFrameGroup({
+                            name: 'post_group',
+                            fixedOn: 'ui_window',
+                            scrollEnabled: false,
+                            rect: {
+                                x: 0,
+                                y: headerHeigt,
+                                w: 'auto',
+                                h: 'auto'
+                            },
+                            frames: [{
+                                name: 'recommend',
+                                url: './post/recommend.html',
+                                bgColor: '#fff'
+                            }, {
+                                name: 'attention',
+                                url: './post/attention.html',
+                                bgColor: '#fff'
+                            },{
+                                name: 'square',
+                                url: './post/square.html',
+                                bgColor: '#fff'
+                            }]
+                        }, function(ret, err) {
+                            var index = ret.index;
+                        });
+                    },
+                    onNavItenClick: function (index) {
+                        this.navActive = index;
+                        console.log(api.frameGroupName);
+                        api.setFrameGroupIndex({
+                            name: 'post_group',
+                            index: index
+                        });
+                    }
+                }
+            });
+        }
+    </script>
 </html>

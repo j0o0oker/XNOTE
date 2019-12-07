@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>动态-推荐</title>
+    </head>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        .app {
+            padding: .75rem .75rem 5rem .75rem;
+        }
+        .post-item {
+            padding: .75rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .post-item .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 2rem;
+            margin-bottom: .75rem;
+        }
+        .post-item .user-info .avator {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .post-item .user-info .avator img {
+            width: 100%;
+            height: 100%;
+        }
+        .post-item .user-info .user-description {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: space-between;
+            height: 3rem;
+            margin-left: .5rem;
+        }
+        .post-item .user-info .user-description .row-1 {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;;
+        }
+        .post-item .user-info .user-description .row-1 .name-wrap {
+            display: flex;
+        }
+        .post-item .user-info .user-description .row-1 .name-wrap .vip-flag {
+            width: 1.5rem;
+            height: .75rem;
+        }
+        .post-item .user-info .user-description .row-1 .name-wrap .vip-flag img {
+            width: 100%;
+            height: 100%;
+        }
+        .post-item .user-info .user-description .row-1 .more-operation {
+            width: 1.1rem;
+            height: .75rem;
+        }
+        .post-item .user-info .user-description .row-1 .more-operation img {
+            width: 100%;
+            height: 100%;
+        }
+        .post-item .user-info .user-description .row-2 {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post-item .user-info .user-description .row-2 .sex-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 2rem;
+            padding: .2rem;
+            border-radius: .25rem;
+            height: .75rem;
+            line-height: .75rem;
+            text-align: center;
+            font-size: .6rem;
+            color: #fff;
+            background-color: #ffc6dc;
+        }
+        .post-item .user-info .user-description .row-2 .sex-wrap .sex-flag {
+            width: .6rem;
+            height: .6rem;
+        }
+        .post-item .user-info .user-description .row-2 .sex-wrap .sex-flag img {
+            width: 100%;
+            height: 100%;
+        }
+        .post-item .user-info .user-description .row-2 .time-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /*width: 2rem;*/
+            border-radius: .25rem;
+            height: .75rem;
+            line-height: .75rem;
+            text-align: center;
+            font-size: .7rem;
+            color: #858585;
+        }
+        .post-item .user-info .user-description .row-2 .time-wrap .loacation-flag {
+            width: .75rem;
+            height: .75rem;
+        }
+        .post-item .user-info .user-description .row-2 .time-wrap .loacation-flag img {
+            width: 100%;
+            height: 100%;
+        }
+        .post-item .user-info .user-description .row-2 .time-wrap .time {
+            margin-left: .5rem;
+        }
+        .post-content .content {
+            padding: .75rem 0;
+        }
+        .post-content .pic-list {
+
+        }
+        .post-content .pic-item {
+            width: 100%;
+        }
+        .post-content .pic-item img {
+            width: 100%;
+        }
+        .post-content .tag-list {
+            display: flex;
+            margin: .75rem 0;
+        }
+        .post-content .tag-list .tag-item {
+            display: flex;
+            align-items: center;
+            margin-right: .5rem;
+            padding: .2rem;
+            border-radius: .25rem;
+            border: 1px solid #d098a5;
+            height: .75rem;
+            line-height: .75rem;
+            text-align: center;
+            font-size: .6rem;
+            color: #d098a5;
+        }
+        .post-operation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: .75rem 0;
+        }
+        .post-operation .view-num {
+            width: 60%;
+        }
+        .post-operation .operation-list {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: .75rem 0;
+        }
+        .post-operation .operation-list .operation-item {
+            display: flex;
+            align-items: center;
+            margin-left: .75rem;
+        }
+        .post-operation .operation-list .operation-item span {
+            margin-left: .5rem;
+        }
+        .post-operation .operation-list .operation-item img {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+    <body>
+        <div id="app" class="app">
+            <ul class="post-list">
+                <li class="post-item">
+                    <div class="user-info" @click="onUserInfoClick('世界第一帅')">
+                        <div class="avator">
+                            <img src="../../image/public/avator.jpg" alt="">
+                        </div>
+                        <div class="user-description">
+                            <div class="row-1">
+                                <div class="name-wrap">
+                                    <span class="name">世界第一帅</span>
+                                    <div class="vip-flag">
+                                        <img src="../../image/post/vip.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="more-operation" @click="moreOperation">
+                                    <img src="../../image/post/more.png" alt="">
+                                </div>
+                            </div>
+                            <div class="row-2">
+                                <div class="sex-wrap">
+                                    <div class="sex-flag">
+                                        <img :src="true?'../../image/post/man.png':'../../image/post/woman.png'" alt="">
+                                    </div>
+                                    <span class="age">18</span>
+                                </div>
+                                <div class="time-wrap">
+                                    <div class="loacation-flag">
+                                        <img src="../../image/post/location.png" alt="">
+                                    </div>
+                                    <span class="location">北京市</span>
+                                    <span class="time">刚刚</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="content">
+                            2020新目标有啦！！
+                        </div>
+                        <ul class="pic-list">
+                            <li class="pic-item">
+                                <img src="../../image/post/pic_1.jpg" alt="">
+                            </li>
+                        </ul>
+                        <ul class="tag-list">
+                            <li class="tag-item">
+                                #天真时刻
+                            </li>
+                            <li class="tag-item">
+                                #小目标
+                            </li>
+                            <li class="tag-item">
+                                #跨年
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="post-operation">
+                        <div class="view-num">999次浏览</div>
+                        <ul class="operation-list">
+                            <li class="operation-item praise" @click="onPraiseClick">
+                                <img :src="!true?'../../image/post/parise.png':'../../image/post/praise_active.png'" alt="">
+                                <span class="praise-num">999</span>
+                            </li>
+                            <li class="operation-item comment" @click="onCommentClick">
+                                <img src="../../image/post/comment.png" alt="">
+                                <span class="comment-num">999</span>
+                            </li>
+                            <li class="operation-item share" @click="onShareClick">
+                                <img src="../../image/post/share.png" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            vm = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                created: function () {
+
+                },
+                methods: {
+                    moreOperation: function () {
+                        var _this = this;
+                        api.actionSheet({
+                            title: '更多操作',
+                            cancelTitle: '取消',
+                            // destructiveTitle: '红色警告按钮',
+                            buttons: ['收藏', '举报']
+                        }, function(ret, err) {
+                            switch (ret.buttonIndex) {
+                                case 1:
+                                    _this.onCollectClick();
+                                    break;
+                                case 2:
+                                    _this.onInformClick();
+                                    break;
+                                default:
+                            }
+                        });
+                    },
+                    onCollectClick: function () {
+                        api.toast({
+                            msg: '收藏成功',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                    },
+                    onInformClick: function () {
+                        api.toast({
+                            msg: '举报成功，谢谢您对社区维护做出的贡献',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                    },
+                    onPraiseClick: function () {
+                        api.toast({
+                            msg: '点赞成功',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                    },
+                    onCommentClick: function () {
+                        api.toast({
+                            msg: '评论成功',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                    },
+                    onShareClick: function () {
+                        api.toast({
+                            msg: '分享成功',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                    },
+                    onUserInfoClick: function (user_name) {
+                        var param = {
+            				name: 'another_user_info',
+            				url: './another_user_info.html',
+                            bgColor: '#fff',
+            				title: user_name,
+            			  	navigationBar: {
+                                background: 'rgba(55, 149, 239)',
+                                text: '',
+                                color: '#fff',
+                                leftButtons: [{
+                                    iconPath: "widget://image/public/white_arror_back.png"
+                                }]
+                            }
+            			}
+            			api.openTabLayout(param);
+                    }
+                }
+            });
+
+        }
+    </script>
+</html>
