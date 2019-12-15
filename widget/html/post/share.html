@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>动态-心情广场</title>
+    </head>
+    <style>
+        body, html, #app {
+            background-color: #fff;
+        }
+    </style>
+    <body>
+        <div class="app" id="app" @click="api.closeFrame({name: 'share'});">
+        </div>
+    </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            vm = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                created: function () {
+                    this.initView();
+                },
+                methods: {
+                    initView: function () {
+                        var param = {
+                            name: 'share_frame',
+                            url: './share_frame.html',
+                            fixedOn: 'ui_layout',
+                            bgColor: 'transparent',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                w: api.winWidth,
+                                h: api.winHeight
+                            },
+                            animation: {
+                                type: 'fade',
+                                subType: 'from_bottom',
+                                duration: 500
+                            }
+                        }
+                        api.openFrame(param);
+                    }
+                }
+            });
+
+        }
+    </script>
+    </html>

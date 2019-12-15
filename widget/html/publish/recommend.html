@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>发表-推荐</title>
+    </head>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        body, html, #app {
+            background-color: #fff;
+            height: calc(100% + 1rem);
+        }
+        .main-content {
+            margin: 0 .75rem;
+        }
+        .articel-list {
+            background-color: #ddd;
+        }
+        .articel-list .articel-item {
+            padding: .75rem 0;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: .75rem;
+            background-color: #fff;
+        }
+        .articel-list .articel-item .title {
+            padding: .5rem 0;
+            font-size: 1rem;
+            font-weight: 900;
+        }
+        .articel-list .articel-item .content {
+            font-size: .75rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            /* 几行后显示省略号 */
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .articel-list .articel-item .user-info {
+            display: flex;
+            align-items: center;
+            padding-top: .75rem;
+            font-size: .75rem;
+        }
+        .articel-list .articel-item .user-info img {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+    <body>
+        <div class="app" id="app">
+            <div class="main-content">
+                <ul class="articel-list">
+                    <li class="articel-item">
+                        <p class="title">如何保养头发</p>
+                        <div class="content">
+                            首先，要选择适合自己发质的洗发水，对于干性和中性发质的人，要选择滋润型洗发水，而对于油性发质的人，需要选择去油的洗发水，平时可以定期使用护发素，滋润头发，使头发得到营养。其次，尽量在洗头后，少用电吹风。再者，平时不要频繁的烫发染发，会损伤发质。
+                        </div>
+                        <div class="user-info">
+                            <span class="name">程序猿1号</span>
+                            <img class="mg-left-20" src="../../image/post/praise.png" alt="">
+                            <span class="praise-count mg-left-20">66</span>
+                            <img class="mg-left-20" src="../../image/post/comment.png" alt="">
+                            <span class="comment-count mg-left-20">66</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            vm = new Vue({
+                el: '#app',
+                data: {
+                    navActive: 0
+                },
+                created: function () {
+                    api.addEventListener({
+                        name:'swipeleft'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'PublishFrameItemSwipe',
+                            extra: {
+                                type: 'left',
+                                index: 1
+                            }
+                        });
+                    });
+                    api.addEventListener({
+                        name:'swiperight'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'publishFrameItemSwipe',
+                            extra: {
+                                type: 'right',
+                                index: 0
+                            }
+                        });
+                    });
+                    this.initView();
+                    $j.pullDownRefresh(function (ret, err) {
+                    });
+                    $j.scrolltobottom(function (ret, err) {
+                        $j.toast('我是有底线的');
+                    });
+                },
+                methods: {
+                    initView: function () {
+                    }
+                }
+            });
+
+        }
+    </script>
+    </html>

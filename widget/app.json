@@ -1,6 +1,13 @@
 {
   "name": "root",
+  "hideTabBar": false,
   "tabBar": {
+      "height": "70",
+      "selectedColor": "#0ef01c",
+      "textOffset": "6",
+      "scrollEnabled": false,
+      "index": 0,
+      "fontSize": "15",
     "frames": [{
       "title": "home",
       "name": "home",
@@ -27,7 +34,7 @@
       "iconPath": "widget://image/public/dt.png",
       "selectedIconPath": "widget://image/public/dt_hov.png"
     }, {
-      "text": "发表",
+      "text": "文章",
       "iconPath": "widget://image/public/fb.png",
       "selectedIconPath": "widget://image/public/fb_hov.png"
     }, {

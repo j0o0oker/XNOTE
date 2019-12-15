@@ -181,13 +181,13 @@
         <div id="app" class="app">
             <ul class="post-list">
                 <li class="post-item">
-                    <div class="user-info" @click="onUserInfoClick('世界第一帅')">
-                        <div class="avator">
+                    <div class="user-info">
+                        <div class="avator" @click="onUserInfoClick('世界第一帅')">
                             <img src="../../image/public/avator.jpg" alt="">
                         </div>
                         <div class="user-description">
                             <div class="row-1">
-                                <div class="name-wrap">
+                                <div class="name-wrap" @click="onUserInfoClick('世界第一帅')">
                                     <span class="name">世界第一帅</span>
                                     <div class="vip-flag">
                                         <img src="../../image/post/vip.png" alt="">
@@ -253,6 +253,7 @@
                     </div>
                 </li>
             </ul>
+            <!-- <button type="button" name="button" @click="test">测试</button> -->
         </div>
     </body>
     <script src="../../script/api.js" charset="utf-8"></script>
@@ -261,15 +262,104 @@
     <script type="text/javascript">
         var vm;
         apiready = function () {
+
             vm = new Vue({
                 el: '#app',
                 data: {
-
+                    start_point_x: 0
                 },
                 created: function () {
-
+                    api.addEventListener({
+                        name:'swipeleft'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'frameItemSwipe',
+                            extra: {
+                                type: 'left',
+                                index: 1
+                            }
+                        });
+                    });
+                    api.addEventListener({
+                        name:'swiperight'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'frameItemSwipe',
+                            extra: {
+                                type: 'right',
+                                index: 0
+                            }
+                        });
+                    });
+                    $j.pullDownRefresh(function (ret, err) {
+                    });
+                    $j.scrolltobottom(function (ret, err) {
+                        $j.toast('我是有底线的');
+                    });
+                },
+                mounted: function () {
+                    var _this = this;
+                    window.ontouchstart = function (e) {
+                        _this.start_point_x = e.touches[0].clientX;
+                    }
+                    window.ontouchmove = function (e) {
+                        // $j.log(e.touches[0].clientX);
+                        var len = e.touches[0].clientX - _this.start_point_x;
+                        $j.log(len);
+                        api.sendEvent({
+                            name: 'interMove',
+                            extra: {
+                                len: e.touches[0].clientX - _this.start_point_x,
+                                index: 0
+                            }
+                        });
+                    }
                 },
                 methods: {
+                    test: function () {
+                        //仅震动
+                        api.notification({
+                            vibrate:[10, 100, 10, 10],
+                            light: true
+                        });
+
+                        //仅提示音
+                        // api.notification({
+                        //     sound:'default'
+                        // });
+
+                        //提示音+震动
+                        // api.notification();
+
+                        //弹出状态栏通知
+                        api.notification({
+                            notify: {
+                            title: '新消息',
+                                content: '有一位神秘好友给你发了消息'
+                            }
+                        });
+
+                        //闹铃
+                        // api.notification({
+                        //     notify: {
+                        //         content: '闹钟'
+                        //     },
+                        //     //每周一、二、三、四、五的7点30分闹铃
+                        //     alarm: {
+                        //         hour: 7,
+                        //         minutes: 30,
+                        //         daysOfWeek: [2, 3, 4, 5, 6]
+                        //     }
+                        // }, function(ret, err) {
+                        //     var id = ret.id;
+                        // });
+                    },
                     moreOperation: function () {
                         var _this = this;
                         api.actionSheet({
@@ -318,11 +408,24 @@
                             });
                     },
                     onShareClick: function () {
-                        api.toast({
-                            msg: '分享成功',
-                                duration: 2000,
-                                location: 'bottom'
-                            });
+                        var param = {
+                            name: 'share',
+                            url: './share.html',
+                            fixedOn: 'ui_window',
+                            bgColor: 'rgba(0, 0, 0, 0.1)',
+                            rect: {
+                                x: 0,
+                                y: 0,
+                                w: api.winWidth,
+                                h: api.winHeight
+                            },
+                            animation: {
+                                type: 'fade',
+                                subType: 'from_left',
+                                duration: 500
+                            }
+                        }
+                        api.openWin(param);
                     },
                     onUserInfoClick: function (user_name) {
                         var param = {
@@ -340,6 +443,9 @@
                             }
             			}
             			api.openTabLayout(param);
+                    },
+                    modifiNavBarStyle: function (e) {
+                        $j.log(e.clientX);
                     }
                 }
             });

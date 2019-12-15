@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>动态-心情广场</title>
+    </head>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        body, html, #app {
+            background-color: #fff;
+            height: calc(100% + 1rem);
+        }
+        .main-content {
+            margin: 0 .75rem;
+        }
+        .articel-list {
+            background-color: #ddd;
+        }
+        .articel-list .articel-item {
+            padding: .75rem 0;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: .75rem;
+            background-color: #fff;
+        }
+        .articel-list .articel-item .title {
+            padding: .5rem 0;
+            font-size: 1rem;
+            font-weight: 900;
+        }
+        .articel-list .articel-item .content {
+            font-size: .75rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            /* 几行后显示省略号 */
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .articel-list .articel-item .user-info {
+            display: flex;
+            align-items: center;
+            padding-top: .75rem;
+            font-size: .75rem;
+        }
+        .articel-list .articel-item .user-info img {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+    <body>
+        <div class="app" id="app">
+            <div class="main-content">
+                <ul class="articel-list">
+                    <li class="articel-item">
+                        <p class="title">如何吸引女孩子注意力</p>
+                        <div class="content">
+                            作为男人，你一定要有自信，这个自信是由内到外散发出来的，女人都喜欢有自信的男人，这样的男人可以给女人带来一种被征服的感觉，在强悍的女人如果遇到了自信的男人，也会变得小鸟依人。
+                        </div>
+                        <div class="user-info">
+                            <span class="name">攻城狮1号</span>
+                            <img class="mg-left-20" src="../../image/post/praise.png" alt="">
+                            <span class="praise-count mg-left-20">66</span>
+                            <img class="mg-left-20" src="../../image/post/comment.png" alt="">
+                            <span class="comment-count mg-left-20">66</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            vm = new Vue({
+                el: '#app',
+                data: {
+                    navActive: 0
+                },
+                created: function () {
+                    api.addEventListener({
+                        name:'swipeleft'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'PublishFrameItemSwipe',
+                            extra: {
+                                type: 'left',
+                                index: 2
+                            }
+                        });
+                    });
+                    api.addEventListener({
+                        name:'swiperight'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'PublishFrameItemSwipe',
+                            extra: {
+                                type: 'right',
+                                index: 0
+                            }
+                        });
+                    });
+                    this.initView();
+                    $j.pullDownRefresh(function (ret, err) {
+                    });
+                    $j.scrolltobottom(function (ret, err) {
+                        $j.toast('我是有底线的');
+                    });
+                },
+                methods: {
+                    initView: function () {
+                    }
+                }
+            });
+
+        }
+    </script>
+    </html>

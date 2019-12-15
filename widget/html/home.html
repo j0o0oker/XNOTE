@@ -3,8 +3,107 @@
     <head>
         <meta charset="utf-8">
         <title>首页</title>
+        <link rel="stylesheet" href="../css/reset.css">
+        <link rel="stylesheet" href="../css/common.css">
+        <style>
+            .app {
+                background-color: #fff;
+            }
+            .header {
+                padding: .75rem;
+            }
+            .header .btn-bar {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                color: #ff9500;
+                background-color: #fff;
+            }
+             .header .btn-bar .left-btn, .header .btn-bar .right-btn {
+                 padding: .5rem;
+             }
+             .pic_nav_list {
+                 /*margin-bottom: 2rem;*/
+             }
+             .pic_nav_list .pic_nav_item {
+                 position: relative;
+                 margin-top: 1rem;
+                 width: 100%;
+                 height: 9rem;
+             }
+             .pic_nav_list .pic_nav_item .title {
+                 position: absolute;
+                 padding-left: 3rem;
+                 line-height: 9rem;
+                 font-size: 2rem;
+                 font-weight: 900;
+                 color: #fff;
+             }
+             .pic_nav_list .pic_nav_item img {
+                 width: 100%;
+                 height: 100%;
+             }
+        </style>
     </head>
     <body>
-        首页
+        <div id="app" class="app">
+            <div class="header">
+                <div class="btn-bar">
+                    <div class="left-btn" @click="writePost">
+                        写动态
+                    </div>
+                    <div class="right-btn" @click="writeArticle">
+                        发文章
+                    </div>
+                </div>
+            </div>
+            <ul class="pic_nav_list">
+                <li class="pic_nav_item">
+                    <div class="title">VUE</div>
+                    <img src="../image/home/bg_1.jpg" alt="">
+                </li>
+                <li class="pic_nav_item">
+                    <div class="title">大数据</div>
+                    <img src="../image/home/bg_4.jpg" alt="">
+                </li>
+                <li class="pic_nav_item">
+                    <div class="title">JAVA</div>
+                    <img src="../image/home/bg_3.jpg" alt="">
+                </li>
+                <li class="pic_nav_item">
+                    <div class="title">人工智能</div>
+                    <img src="../image/home/bg_5.jpg" alt="">
+                </li>
+                <li class="pic_nav_item">
+                    <div class="title" style="color: #000;">每日一笑</div>
+                    <img src="../image/home/bg_2.jpg" alt="">
+                </li>
+            </ul>
+        </div>
     </body>
+    <script src="../script/api.js" charset="utf-8"></script>
+    <script src="../script/vue.min.js" charset="utf-8"></script>
+    <script src="../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            vm = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                created: function () {
+
+                },
+                methods: {
+                    writePost: function () {
+                        $j.openWin('./post/writePost.html', {});
+                    },
+                    writeArticle: function () {
+                        $j.openWin('./publish/writeArticle.html', {});
+                    }
+                }
+            })
+        }
+    </script>
 </html>

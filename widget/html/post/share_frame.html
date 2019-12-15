@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>动态-心情广场</title>
+    </head>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        body, html, #app {
+            background-color: transparent;
+        }
+        .content {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background-color: #eaedf2;
+        }
+        .content .title {
+            padding: .75rem 0;
+            text-align: center;
+        }
+        .content .place-list {
+            display: flex;
+            justify-content: flex-start;
+            align-content: space-between;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: center;
+            height: 10rem;
+        }
+        .content .place-list .place-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            margin-left: calc((100% - 20rem) / 6);
+            border-radius: .25rem;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .content .place-list .place-item img {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        .content .close-btn {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: .75rem 0;
+            text-align: center;
+            background-color: #fff;
+        }
+    </style>
+    <body>
+        <div class="app" id="app" @click="close">
+            <div class="content">
+                <p class="title" @click.stop="">选择要分享的平台</p>
+                <ul class="place-list" @click.stop="">
+                    <li class="place-item">
+                        <img src="../../image/mine/QQ.png" alt="">
+                    </li>
+                    <li class="place-item">
+                        <img src="../../image/mine/wx.png" alt="">
+                    </li>
+                    <li class="place-item">
+                        <img src="../../image/mine/wx_friends.png" alt="">
+                    </li>
+                    <li class="place-item">
+                        <img src="../../image/mine/wx_collect.png" alt="">
+                    </li>
+                    <li class="place-item">
+                        <img src="../../image/mine/weibo.png" alt="">
+                    </li>
+                    <li class="place-item">
+                        <img src="../../image/mine/QQ_kj.png" alt="">
+                    </li>
+                </ul>
+                <div class="close-btn">取消分享</div>
+            </div>
+        </div>
+    </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            vm = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                created: function () {
+                },
+                methods: {
+                    canaleShare: function () {
+                        api.toast({
+                            msg: '您取消了分享',
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                    },
+                    close: function () {
+                        api.closeFrame({name: 'share_frame'});
+                        api.closeWin({name: 'share'});
+                    }
+                }
+            });
+
+        }
+    </script>
+    </html>

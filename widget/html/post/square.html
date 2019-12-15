@@ -10,8 +10,63 @@
         }
     </style>
     <body>
-        <div class="app">
+        <div class="app" id="app">
             心情广场
         </div>
     </body>
-</html>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+
+            vm = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                created: function () {
+                    api.addEventListener({
+                        name:'swipeleft'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'frameItemSwipe',
+                            extra: {
+                                type: 'left',
+                                index: 2
+                            }
+                        });
+                    //    vm.modifiNavBarStyle(event);
+                    });
+                    api.addEventListener({
+                        name:'swiperight'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'frameItemSwipe',
+                            extra: {
+                                type: 'right',
+                                index: 1
+                            }
+                        });
+                    });
+                    $j.pullDownRefresh(function (ret, err) {
+                    });
+                    $j.scrolltobottom(function (ret, err) {
+                        $j.toast('我是有底线的');
+                    });
+                },
+                methods: {
+
+                }
+            });
+
+        }
+    </script>
+    </html>

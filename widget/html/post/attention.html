@@ -4,14 +4,69 @@
         <meta charset="utf-8">
         <title>动态-关注</title>
     </head>
-    <style media="screen">
+    <style>
         .wrap {
             background-color: #ff0000;
         }
     </style>
     <body>
-        <div class="app">
+        <div class="app" id="app">
             关注
         </div>
     </body>
-</html>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+
+            vm = new Vue({
+                el: '#app',
+                data: {
+
+                },
+                created: function () {
+                    api.addEventListener({
+                        name:'swipeleft'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'frameItemSwipe',
+                            extra: {
+                                type: 'left',
+                                index: 2
+                            }
+                        });
+                    //    vm.modifiNavBarStyle(event);
+                    });
+                    api.addEventListener({
+                        name:'swiperight'
+                    }, function(ret, err){
+                        if (err) {
+                            $j.log(ret);
+                        }
+                        api.sendEvent({
+                            name: 'frameItemSwipe',
+                            extra: {
+                                type: 'right',
+                                index: 0
+                            }
+                        });
+                    });
+                    $j.pullDownRefresh(function (ret, err) {
+                    });
+                    $j.scrolltobottom(function (ret, err) {
+                        $j.toast('我是有底线的');
+                    });
+                },
+                methods: {
+
+                }
+            });
+
+        }
+    </script>
+    </html>
