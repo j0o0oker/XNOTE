@@ -3,8 +3,177 @@
     <head>
         <meta charset="utf-8">
         <title>写文章</title>
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/common.css">
+        <!-- <link rel="stylesheet" href="../../css/wangEditor.min.css"> -->
+        <style>
+        html {
+            font-size: 20px;
+        }
+            .app {
+                background-color: #fff;
+            }
+            .toolbar {
+                width: 100%;
+                /*overflow-x: hidden;*/
+            }
+            .tip-list {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                width: calc(100% - 0.7rem);
+                padding: 0 .35rem;
+            }
+            .tip-list .tip-item {
+                width: 2rem;
+                text-align: center;
+                font-size: .5rem;
+                color: #fff;
+            }
+            .text {
+                position: relative;
+                top: 1rem;
+                left: .35rem;
+                width: calc(100% - 0.7rem);
+                min-height: 25rem;
+                /*margin-left: .35rem;*/
+                /*margin-right: .35rem;*/
+                border: 1px solid #ccc;
+                font-size: .6rem;
+            }
+            code {
+              display: inline-block;
+              *display: inline;
+              *zoom: 1;
+              background-color: #f1f1f1;
+              color: #ff0000;
+              border-radius: 3px;
+              padding: 3px 5px;
+              margin: 0 3px;
+            }
+            pre code {
+              display: block;
+              width: 1rem;
+              background-color: #ff0000;
+            }
+        </style>
     </head>
     <body>
-        写文章
+        <div id="app" class="app">
+            <div id="div1" class="toolbar">
+            </div>
+            <ul class="tip-list">
+                <li class="tip-item" style="background-color: #D24D57;">
+                    标题
+                </li>
+                <li class="tip-item" style="background-color: #AEDD81;">
+                    粗体
+                </li>
+                <li class="tip-item" style="background-color: #2C3E50;">
+                    字体
+                </li>
+                <li class="tip-item" style="background-color: #D0D0D0;">
+                    斜体
+                </li>
+                <li class="tip-item" style="background-color: #00CCFF;">
+                    下划线
+                </li>
+                <li class="tip-item" style="background-color: #84AF9B;">
+                    删除线
+                </li>
+                <li class="tip-item" style="background-color: #AEDD81;">
+                    文字颜色
+                </li>
+                <li class="tip-item" style="background-color: #26A65B;">
+                    背景颜色
+                </li>
+                <li class="tip-item" style="background-color: #FC9D99;">
+                    插入图片
+                </li>
+                <li class="tip-item" style="background-color: #EB7347;">
+                    插入代码
+                </li>
+                <li class="tip-item" style="background-color: #AEDD81;">
+                    撤销
+                </li>
+            </ul>
+            <div id="div2" class="text"> <!--可使用 min-height 实现编辑区域自动增加高度-->
+                <!-- <p>请输入内容</p> -->
+            </div>
+            <div class="content" id="content" v-html="tempHtml"></div>
+        </div>
     </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script src="../../script/wangEditor.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm, editor;
+        apiready = function () {
+            api.addEventListener({
+                name:'navtitle'
+            },function(){
+                $j.log('title');
+            });
+            api.addEventListener({
+                name: 'navitembtn'
+            }, function(ret, err){
+                if(err){
+                     return;
+                }
+                if (ret.type == 'left') {
+                    api.closeWin();
+                    return;
+                }
+                if (ret.type == 'right') {
+                    vm.publishArticle();
+                }
+            });
+            vm = new Vue({
+                el: '#app',
+                data: {
+                    tempHtml : ''
+                },
+                created: function () {
+
+                },
+                mounted: function () {
+                    this.$nextTick(function () {
+                        var E = window.wangEditor;
+                        editor = new E('#div1', '#div2');
+                        editor.customConfig.menus = [
+                                                        'head',  // 标题
+                                                        'bold',  // 粗体
+                                                        // 'fontSize',  // 字号
+                                                        'fontName',  // 字体
+                                                        'italic',  // 斜体
+                                                        'underline',  // 下划线
+                                                        'strikeThrough',  // 删除线
+                                                        // 'foreColor',  // 文字颜色
+                                                        // 'backColor',  // 背景颜色
+                                                        // 'link',  // 插入链接
+                                                        // 'list',  // 列表
+                                                        // 'justify',  // 对齐方式
+                                                        // 'quote',  // 引用
+                                                        // 'emoticon',  // 表情
+                                                        'image',  // 插入图片
+                                                        // 'table',  // 表格
+                                                        // 'video',  // 插入视频
+                                                        'code',  // 插入代码
+                                                        'undo'  // 撤销
+                                                        // 'redo'  // 重复
+                                                   ];
+                        editor.customConfig.uploadImgShowBase64 = true ;
+                        editor.customConfig.showLinkImg = false;
+                        editor.create();
+                    });
+                },
+                methods: {
+                    publishArticle: function () {
+                        this.tempHtml = editor.txt.html();
+                    }
+                }
+            });
+        }
+    </script>
 </html>

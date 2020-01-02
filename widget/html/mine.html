@@ -177,7 +177,7 @@
                 </li>
             </ul>
             <div class="footer">
-                <div class="logout-btn">
+                <div class="logout-btn" @click="test">
                     退出登陆
                 </div>
             </div>
@@ -259,6 +259,10 @@
                               img_url: '../image/mine/yhfk.png'
                           },
                           {
+                              title: '联系我们',
+                              img_url: '../image/mine/call.png'
+                          },
+                          {
                               title: '设置',
                               img_url: '../image/mine/sz.png'
                           }
@@ -287,7 +291,28 @@
                             name: 'login',
                             url: './mine/login.html',
                         });
-                      }
+                    },
+                    test: function () {
+                        // api.startLocation({
+                        //     accuracy: '10m',
+                        //     filter: 0.1,
+                        //     autoStop: true
+                        // }, function(ret, err){
+                        //     if(ret && ret.status){
+                        //          //获取位置信息成功
+                        //          setInterval(function () {
+                        //              $j.log(ret);
+                        //          }, 1000);
+                        //     }else{
+                        //          alert(JSON.stringify(err));
+                        //     }
+                        // });
+                        return;
+                        api.call({
+                            type: 'tel_prompt',
+                            number: '10086'
+                        });
+                    }
                   }
               });
           }

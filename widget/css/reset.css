@@ -7,3 +7,26 @@ ul, li {
     padding: 0;
     list-style: none;
 }
+input {
+    border: none;
+    outline: none;
+    word-break: break-all;
+}
+input:focus {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    word-break: break-all;
+
+}
+textarea:focus {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    word-break: break-all;
+    outline: none;
+
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    display: inline;
+    vertical-align: top;
+    line-height: 1rem;
+}

@@ -107,6 +107,24 @@
                 if (err) {
                     return;
                 }
+                if (ret.index === 0) {
+                    api.setTabBarAttr({
+                        index: ret.index,
+                        background: '#000',
+                        color: '#fff',
+                        selectedColor: '#ff9500',
+                        shadow: '#000'
+                    });
+                }
+                if (ret.index !== 0) {
+                    api.setTabBarAttr({
+                        index: ret.index,
+                        background: '#fff',
+                        color: '#000',
+                        selectedColor: '#ff9500',
+                        shadow: '#000'
+                    });
+                }
                 if (ret.index !== 2) {
                     api.closeFrameGroup({
                         name: 'publish_group'

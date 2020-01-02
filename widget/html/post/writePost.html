@@ -3,8 +3,195 @@
     <head>
         <meta charset="utf-8">
         <title>写动态</title>
+        <link rel="stylesheet" href="../../css/reset.css">
+        <link rel="stylesheet" href="../../css/common.css">
+        <style>
+            .app {
+                position: relative;
+                background-color: #fff;
+                width: 100%;
+                height: 100%;
+            }
+            .inp {
+                width: calc(100% - 1.5rem);
+                min-height: 5rem;
+                height: auto;
+                padding: .75rem;
+                border: none;
+            }
+            .location {
+                display: flex;
+                align-items: center;
+                padding: 1rem .75rem;
+                border-top: 1px solid #ddd;
+            }
+            .location img {
+                width: 1rem;
+                height: 1rem;
+                margin-right: .5rem;
+            }
+            .talk-type {
+                display: flex;
+                align-items: center;
+                padding: 1rem .75rem;
+                border-top: 1px solid #ddd;
+            }
+            .talk-type img {
+                width: 1rem;
+                height: 1rem;
+                margin-right: .5rem;
+            }
+            .visibility {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem .75rem;
+                border-top: 1px solid #ddd;
+            }
+            .visibility .visibility-type {
+                color: #d098a5;
+            }
+            .visibility .img-wrap img {
+                width: 1rem;
+                height: 1rem;
+                margin-right: .5rem;
+            }
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                height: 3rem;
+                background-color: #ddd;
+            }
+            .footer img {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        </style>
     </head>
     <body>
-        写动态
+        <div id="app" class="app">
+            <textarea class="inp" placeholder="此刻你想说点什么呢..." ref="inp" @input="onInpChange" v-model="content"></textarea>
+            <div class="location">
+                <img src="../../image/post/location.png" alt="">
+                <span>北京市</span>
+            </div>
+            <div class="talk-type">
+                <img src="../../image/post/at.png" alt="">
+                <span>选择话题</span>
+            </div>
+            <div class="visibility">
+                <div class="img-wrap">
+                    <img src="../../image/post/kj.png" alt="">
+                    <span>可见范围</span>
+                </div>
+                <span class="visibility-type">公开</span>
+            </div>
+            <div class="footer">
+                <img src="../../image/post/tp.png" @click="addImg" alt="">
+                <img src="../../image/post/at.png" alt="">
+                <img src="../../image/post/bq.png" alt="">
+                <img src="../../image/post/mkf.png" alt="">
+                <img src="../../image/post/lj.png" alt="">
+            </div>
+        </div>
     </body>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/vue.min.js" charset="utf-8"></script>
+    <script src="../../script/common.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var vm;
+        apiready = function () {
+            api.addEventListener({
+                name: 'navitembtn'
+            }, function(ret, err){
+                if(err){
+                     return;
+                }
+                if (ret.type == 'left') {
+                    api.closeWin();
+                    return;
+                }
+                if (ret.type == 'right') {
+                    vm.publishArticle();
+                }
+            });
+            vm = new Vue({
+                el: '#app',
+                data: {
+                    content: ''
+                },
+                created: function () {
+
+                },
+                methods: {
+                    onInpChange: function () {
+                        this.$refs.inp.style.height = 'auto';
+                        this.$refs.inp.scrollTop = 0; //防抖动
+                        this.$refs.inp.style.height = this.$refs.inp.scrollHeight + 'px';
+                    },
+                    addImg: function () {
+                        api.actionSheet({
+                            title: '添加图片',
+                            cancelTitle: '取消',
+                            buttons: ['拍照', '相册']
+                        }, function(ret, err) {
+                            $j.log(index);
+                            if (ret.buttonIndex === 1) {
+                                api.getPicture({
+                                    sourceType: 'camera',
+                                    encodingType: 'jpg',
+                                    mediaValue: 'pic',
+                                    destinationType: 'url',
+                                    allowEdit: true,
+                                    quality: 50,
+                                    targetWidth: 100,
+                                    targetHeight: 100,
+                                    saveToPhotoAlbum: false
+                                }, function(ret, err) {
+                                    if (err) {
+                                        return;
+                                    }
+                                    $j.log(ret.data);
+                                });
+                                return;
+                            }
+                            if (ret.buttonIndex === 2) {
+                                api.getPicture({
+                                    sourceType: 'library',
+                                    encodingType: 'jpg',
+                                    mediaValue: 'pic',
+                                    destinationType: 'url',
+                                    allowEdit: true,
+                                    quality: 100,
+                                    saveToPhotoAlbum: false
+                                }, function(ret, err) {
+                                    if (err) {
+                                        return;
+                                    }
+                                    $j.log(ret.data);
+                                });
+                                return;
+                            }
+                        });
+
+                    },
+                    publishArticle: function () {
+                        if (!this.content) {
+                            $j.toast('内容不能为空哦');
+                            return;
+                        }
+                        var dt = {
+                            content: this.content
+                        }
+                        $j.log(dt);
+                    }
+                }
+            });
+        }
+    </script>
 </html>

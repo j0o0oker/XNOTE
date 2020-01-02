@@ -55,6 +55,13 @@
         var vm;
         apiready = function () {
             api.addEventListener({
+                name:'launchviewclicked'
+            },function(ret,err){
+                api.alert({
+                    msg:ret.value
+                });
+            });
+            api.addEventListener({
                 name: 'initPost'
             }, function(ret, err){
                 if (err) {
@@ -89,6 +96,24 @@
             }, function(ret, err){
                 if (err) {
                     return;
+                }
+                if (ret.index === 0) {
+                    api.setTabBarAttr({
+                        index: ret.index,
+                        background: '#000',
+                        color: '#fff',
+                        selectedColor: '#ff9500',
+                        shadow: '#000'
+                    });
+                }
+                if (ret.index !== 0) {
+                    api.setTabBarAttr({
+                        index: ret.index,
+                        background: '#fff',
+                        color: '#000',
+                        selectedColor: '#ff9500',
+                        shadow: '#000'
+                    });
                 }
                 if (ret.index !== 1) {
                     api.closeFrameGroup({
@@ -126,7 +151,6 @@
                 api.setTabBarAttr({
                     index: ret.index
                 });
-                $j.log(JSON.stringify(ret));
             });
             vm = new Vue({
                 el: '#app',

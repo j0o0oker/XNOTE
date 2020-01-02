@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="../css/common.css">
         <style>
             .app {
-                background-color: #fff;
+                background-color: #000;
             }
             .header {
                 padding: .75rem;
@@ -17,7 +17,7 @@
                 justify-content: space-between;
                 width: 100%;
                 color: #ff9500;
-                background-color: #fff;
+                background-color: #000;
             }
              .header .btn-bar .left-btn, .header .btn-bar .right-btn {
                  padding: .5rem;
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <ul class="pic_nav_list">
-                <li class="pic_nav_item">
+                <li class="pic_nav_item" @click="openHome">
                     <div class="title">VUE</div>
                     <img src="../image/home/bg_1.jpg" alt="">
                 </li>
@@ -87,6 +87,42 @@
     <script type="text/javascript">
         var vm;
         apiready = function () {
+            api.addEventListener({
+                name:'online'
+            }, function(ret, err){
+                alert('已连接到网络');
+            });
+            api.setTabBarAttr({
+                background: '#000',
+                color: '#fff',
+                selectedColor: '#ff9500',
+                shadow: '#000'
+            });
+            api.addEventListener({
+                name: 'tabitembtn'
+            }, function(ret, err){
+                if (err) {
+                    return;
+                }
+                if (ret.index === 0) {
+                    api.setTabBarAttr({
+                        index: ret.index,
+                        background: '#000',
+                        color: '#fff',
+                        selectedColor: '#ff9500',
+                        shadow: '#000'
+                    });
+                }
+                if (ret.index !== 0) {
+                    api.setTabBarAttr({
+                        index: ret.index,
+                        background: '#fff',
+                        color: '#000',
+                        selectedColor: '#ff9500',
+                        shadow: '#000'
+                    });
+                }
+            });
             vm = new Vue({
                 el: '#app',
                 data: {
@@ -97,10 +133,14 @@
                 },
                 methods: {
                     writePost: function () {
-                        $j.openWin('./post/writePost.html', {});
+                        $j.openWinNav('./post/writePost.html', {}, '发布动态');
                     },
                     writeArticle: function () {
-                        $j.openWin('./publish/writeArticle.html', {});
+                        $j.openWinNav('./publish/writeArticle.html', {}, '写文章');
+                    },
+                    openHome: function () {
+                        return;
+                        $j.openWin('./temp.html');
                     }
                 }
             })

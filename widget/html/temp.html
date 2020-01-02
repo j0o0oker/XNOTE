@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>生活</title>
+    <!-- <link rel="stylesheet" type="text/css" href="./css/api.css" /> -->
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <style>
+        body, .wrap{
+            height: 100%;
+            padding: 0;
+        }
+        .header{
+            position: fixed;
+            top:0;
+            z-index: 100;
+            /* background: var(--main-color); */
+            background-color: #fff;
+            padding:0;
+            width: 100%;
+        }
+        /**搜索条***************************************/
+        .aui-searchbar {
+            /* background-color: var(--main-color); */
+            background-color:#fff;
+            color: #cccccc;
+            padding: 0 0.75rem;
+        }
+        .aui-searchbar-input {
+            /* background-color:var(--main-sub-color); */
+            background-color:#ebeced;
+            margin-left: 0;
+            border-radius: 1rem;
+        }
+        .aui-searchbar-input input {
+            color:#fff;
+        }
+        .aui-searchbar input::-webkit-input-placeholder {
+            color: #9e9e9e;
+        }
+        .aui-searchbar .aui-iconfont {
+            color: #9e9e9e !important;
+        }
+
+        /* pic-nav */
+        .pic-nav {
+            margin-top: -.5rem;
+            padding: 0;
+        }
+        .pic-nav .bg-pic {
+            width: 100%;
+            /* height: 100%; */
+        }
+        .gpsx-cut-pic {
+            width: 100%;
+            height: auto;
+            background-color: #f7f7f7;
+        }
+        .gpsx-cut-pic img {
+            width: 100%;
+            /* height: 100%; */
+            padding: 1rem 0;
+        }
+        /**自定义***************************************/
+
+        .aui-grid [class*=aui-col-] {
+            padding: 0.4rem 0;
+            color: #212121;
+        }
+        .aui-grid a{
+            color: #212121;
+        }
+        .label-little{
+            color: gray;
+            font-size: 0.6rem !important;
+        }
+        .img-icon{
+            width: 1.5rem !important;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .sec-padding-15{
+            padding: 0 0.75rem !important;
+            background-color: #f7f7f7;
+        }
+        .group-sub{
+            display: block;
+            border-radius: 0.5rem;
+            background-color: #fff;
+        }
+        .group-sub .title-sub{
+            padding: 0.5rem 0.75rem;
+            font-weight: bolder;
+        }
+        .aui-grid{border-radius: 0.5rem;margin-bottom: 0.5rem;}
+        .aui-grid .grid-box-item {
+            border-right: 1px solid #f7f7f7;
+            border-top: 1px solid #f7f7f7;
+            height: 5.36rem;
+            padding: 1.15rem .6rem 0 .6rem;
+        }
+        .aui-grid .grid-box-item:nth-child(3n) {
+            border-right: 0;
+        }
+        .aui-grid .grid-box-item .aui-grid-label {
+            margin-top: .5rem;
+            color: #666666;
+        }
+        .aui-grid .grid-box-item.blank-box {
+            padding: 0;
+            margin: 0;
+            height: 0.1rem;
+        }
+    </style>
+</head>
+
+<body class="speedup">
+    <div id='wrap' class="wrap" v-cloak>
+        <section class="header" id="header">
+
+        </section>
+        <section class="sec-padding-15">
+            <div class="aui-grid">
+            <div class="aui-row">
+                <div class="aui-col-xs-4 grid-box-item" tapmode>
+                    <img src="../image/mine/QQ_kj.png" class="img-icon" />
+                    <div class="aui-grid-label">aa</div>
+                </div>
+                <div class="aui-col-xs-4 grid-box-item" tapmode>
+                    <img src="../image/mine/QQ_kj.png" class="img-icon" />
+                    <div class="aui-grid-label">aa</div>
+                </div>
+                <div class="aui-col-xs-4 grid-box-item" tapmode>
+                    <img src="../image/mine/QQ_kj.png" class="img-icon" />
+                    <div class="aui-grid-label">azzzzzzzzza</div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    var vm;
+    initHeader = function(){
+        var header = $api.byId('header');
+        var headerH = $api.fixStatusBar(header);
+        $api.css($api.byId('wrap'), 'padding-top:' + (headerH + 10) + 'px');
+        // $api.next(header).style.paddingTop = (headerH + 10) + 'px';
+    };
+    apiready = function() {
+        vm = new Vue({
+            el: '#wrap',
+			data: {
+            },
+            created: function() {
+            },
+            mounted: function() {
+            },
+			methods: {
+
+            }
+        });
+    };
+
+</script>
+
+</html>
